@@ -67,6 +67,7 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
+<<<<<<< HEAD
 // app.use(
 //   cors({
 //     origin: "https://portfolio-web-mern-client.vercel.app", // Replace with your frontend's URL
@@ -76,6 +77,8 @@ const app = express();
 //   })
 // );
 
+=======
+>>>>>>> 46d764664780820624a2611e21da3e56d78eddaa
 app.use(cors({
   origin: "https://portfolio-web-mern-client.vercel.app", // Your frontend domain
   methods: "GET,POST,PUT,DELETE", // Allow specific HTTP methods
@@ -105,6 +108,8 @@ const User = mongoose.model("User", userSchema, "users"); // "users" is your col
 app.get("/", (req, res) => {
   res.send("Hello, the server is working!");
 });
+
+
 
 app.options("*", cors()); // Enable CORS for preflight requests
 
