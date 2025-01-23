@@ -67,7 +67,7 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors({
-  origin: "https://portfolio-web-mern-client.vercel.app", // Your frontend domain
+  origin: "https://portfolio-web-mern-frontend.vercel.app/", // Your frontend domain
   methods: "GET,POST,PUT,DELETE", // Allow specific HTTP methods
   allowedHeaders: "Content-Type,Authorization", // Allow specific headers
 }));
