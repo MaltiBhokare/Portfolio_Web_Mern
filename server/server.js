@@ -67,14 +67,11 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: "https://portfolio-web-mern-client.vercel.app", // Replace with your frontend's URL
-    methods: ["GET", "POST"], // Allowed methods
-    allowedHeaders: ["Content-Type"], // Allow headers like Content-Type
-    credentials: true, // Allow credentials if needed
-  })
-);
+app.use(cors({
+  origin: "https://portfolio-web-mern-client.vercel.app", // Your frontend domain
+  methods: "GET,POST,PUT,DELETE", // Allow specific HTTP methods
+  allowedHeaders: "Content-Type,Authorization", // Allow specific headers
+}));
 
 app.use(express.json());
 
@@ -101,7 +98,9 @@ app.get("/", (req, res) => {
 });
 
 // Handle Preflight Requests
-app.options("/contact", cors());
+
+app.options("*", cors()); // Enable CORS for preflight requests
+
 
 // API endpoint to handle form submissions
 app.post("/contact", async (req, res) => {
