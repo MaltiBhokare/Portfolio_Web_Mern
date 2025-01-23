@@ -70,6 +70,16 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
+
+// Allow only your frontend's origin
+app.use(
+  cors({
+    origin: "https://portfolio-web-mern-client.vercel.app", // Replace with your actual frontend URL
+    methods: ["GET", "POST"], // Allowed methods
+    credentials: true, // Include cookies if needed
+  })
+);
+
 app.use(cors());
 app.use(express.json());
 
