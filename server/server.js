@@ -62,7 +62,6 @@
 
 
 
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -70,12 +69,22 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://portfolio-web-mern-client.vercel.app", // Replace with your frontend's URL
+    methods: ["GET", "POST"], // Allowed methods
+    allowedHeaders: ["Content-Type"], // Allow headers like Content-Type
+    credentials: true, // Allow credentials if needed
+  })
+);
+
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb+srv://user2422:2422@cluster0.qdvbx.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0"
-)
+// MongoDB Connection
+mongoose
+  .connect(
+    "mongodb+srv://user2422:2422@cluster0.qdvbx.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("Error connecting to MongoDB Atlas:", err));
 
@@ -86,12 +95,15 @@ const userSchema = new mongoose.Schema({
   message: { type: String, required: true },
 });
 
+const User = mongoose.model("User", userSchema, "users"); // "users" is your collection name
+
 // Define a simple route for testing
 app.get("/", (req, res) => {
   res.send("Hello, the server is working!");
 });
 
-const User = mongoose.model("User", userSchema, "users"); // "users" is your collection name
+// Handle Preflight Requests
+app.options("/contact", cors());
 
 // API endpoint to handle form submissions
 app.post("/contact", async (req, res) => {
@@ -115,7 +127,7 @@ app.post("/contact", async (req, res) => {
 });
 
 // Start the server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
