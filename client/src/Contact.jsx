@@ -25,7 +25,7 @@ const Contact = () => {
         setIsLoading(true); // Start loading
 
         try {
-            const response = await fetch("https://portfolio-web-mern-63tzjtfp2-maltibhokares-projects.vercel.app//contact", {
+            const response = await fetch("https://portfolio-web-mern3.vercel.app/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
